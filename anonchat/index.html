@@ -1,36 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Anonymous Chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 17px Helvetica, Arial; font-weight: bolder; background-color: beige; margin-bottom: 45px; margin-left: 30px; margin-top: 10px; margin-right: 30px;}
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 88%; margin-right: .5%; font-size: 16px; font-weight: bolder;}
-      form button { width: 8%; background: rgb(102, 255, 153); border: none; padding: 10px; margin-left: 10px; font-size: 19px; font-weight: bolder; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 15px 15px; }
-      #messages li:nth-child(odd) { background: #4dc3ff; } li:nth-child(even) { background: #99ccff; }
-    </style>
-  </head>
-  <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-<script src="/socket.io/socket.io.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script>
-  var socket = io();
-  $('form').submit(function(){
-    socket.emit('chat message', $('#m').val());
-    $('#m').val('');
-    return false;
-  });
-  socket.on('chat message', function(msg){
-    $('#messages').append($('<li>').text(msg))
-    window.scrollTo(0,document.body.scrollHeight);
-  });
-</script>
-  </body>
+<head>
+  <title> Degra's World</title>
+  <link rel="stylesheet" href="/default.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+<p>
+    <h2>Welcome to Degra's World!</h2>
+</p>
+<p>
+    <h3>My Projects thus far:</h3>
+    <a href="/anonchat"><h4>#1: Anonymous Chat</h4></a>
+</p>
+<br /><br /><br />
+</body>
+<footer>
+    <p><em>Thank you for visiting my glorious Website :) </em></p>
+</footer>
 </html>

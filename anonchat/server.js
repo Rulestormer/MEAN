@@ -1,22 +1,35 @@
+// NPM Plugins
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+
+// My Variables
+function getZeit(){
+  return '[' + new Date().toLocaleTimeString('de-DE', { hour: "numeric", 
+                                             minute: "numeric",
+                                            second: "numeric" }) + ']  ';
+}
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/anonchat', function(req, res){
+  res.sendFile(__dirname + '/anonchat.html');
+});
+
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     console.log(msg);
-    io.emit('chat message', msg);
+    io.emit('chat message', getZeit() + msg);
   });
 });
+
 io.on('connection', function(socket){
-  io.emit('chat message', 'A user joined.');
+  io.emit('chat message', getZeit() + 'A user joined.');
   console.log('A user joined.');
   socket.on('disconnect', function(){
-    io.emit('chat message', 'A user left.');
+    io.emit('chat message', getZeit() + 'A user left.');
     console.log('A user left.');
   });
 });
