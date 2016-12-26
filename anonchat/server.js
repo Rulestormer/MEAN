@@ -3,13 +3,15 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-// My Variables
+// Helpers
 function getZeit(){
-  return '[' + new Date().toLocaleTimeString('de-DE', { hour: "numeric", 
-                                             minute: "numeric",
+  return '[' + new Date().toLocaleTimeString('de-DE', { 
+                                            hour: "numeric", 
+                                            minute: "numeric",
                                             second: "numeric" }) + ']  ';
 }
 
+// REST
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
@@ -19,18 +21,17 @@ app.get('/anonchat', function(req, res){
 });
 
 io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    console.log(msg);
-    io.emit('chat message', getZeit() + msg);
-  });
-});
-
-io.on('connection', function(socket){
   io.emit('chat message', getZeit() + 'A user joined.');
   console.log('A user joined.');
+
   socket.on('disconnect', function(){
     io.emit('chat message', getZeit() + 'A user left.');
     console.log('A user left.');
+  });
+
+  socket.on('chat message', function(msg){
+    console.log(msg);
+    io.emit('chat message', getZeit() + msg);
   });
 });
 
