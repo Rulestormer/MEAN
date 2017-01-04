@@ -3,6 +3,8 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+
+
 // Helpers
 function getZeit(){
   return '[' + new Date().toLocaleTimeString('de-DE', { 
